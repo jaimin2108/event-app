@@ -1,0 +1,106 @@
+.userlist-container {
+  padding: 20px;
+}
+
+/* TOP SECTION */
+.userlist-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.total-users {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.userlist-top input {
+  padding: 8px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* TABLE */
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table th,
+.user-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.user-table th {
+  background-color: #f5f5f5;
+}
+
+/* ACTION BUTTONS (IMPORTANT PART) */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* DELETE BUTTON (BLUE) */
+.delete-btn {
+  background-color: blue;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: darkblue;
+}
+
+/* BLOCK BUTTON (RED) */
+.block-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.block-btn:hover {
+  background-color: darkred;
+}
+
+.block-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 5px;
+  font-size: 14px;
+  background-color: #28a745;
+  color: white;
+  transition: 0.2s;
+}
+
+.block-btn:hover {
+  background-color: #218838;
+}
+
+.delete-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #dc3545;
+  color: white;
+  transition: 0.2s;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}

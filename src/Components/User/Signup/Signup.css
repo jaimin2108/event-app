@@ -1,0 +1,100 @@
+/* Page container (below navbar) */
+.registrationform {
+  width: 100%;
+  padding-top: 100px; /* space for navbar */
+  padding-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  background: #f4f4f4;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Registration Card */
+.register-form {
+  background: #ffffff;
+  width: 400px;
+  padding: 35px 30px;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+/* Title */
+.register-form h3 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 24px;
+  color: #333;
+}
+
+/* Form groups */
+.register-form div {
+  margin-bottom: 15px;
+}
+
+/* Labels */
+.register-form label {
+  font-size: 14px;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Inputs */
+.register-form input[type="text"],
+.register-form input[type="number"],
+.register-form input[type="email"],
+.register-form input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.register-form input:focus {
+  border-color: #7b2cbf;
+}
+
+/* Gender radio group */
+.register-form input[type="radio"] {
+  margin-right: 5px;
+}
+
+.register-form label input[type="radio"] {
+  margin-right: 5px;
+}
+
+/* Radio container */
+.register-form div div {
+  display: flex;
+  gap: 15px;
+  margin-top: 5px;
+}
+
+/* Register button */
+.register-form button {
+  width: 100%;
+  padding: 12px;
+  background: #7b2cbf;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.register-form button:hover {
+  background: #5a189a;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .register-form {
+    width: 90%;
+    padding: 25px 20px;
+  }
+}

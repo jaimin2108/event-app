@@ -1,0 +1,185 @@
+/* ===== GLOBAL RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ===== LAYOUT ===== */
+.layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f3f4f6;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  background: #111827;
+  color: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 20px;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar ul li {
+  padding: 12px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.sidebar ul li:hover {
+  background: #374151;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main-content {
+  margin-left: 220px;
+  width: 100%;
+  padding: 30px;
+}
+
+/* ===== PAYMENT PAGE ===== */
+.payment-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== PAYMENT CARD ===== */
+.payment-card {
+  width: 400px;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.payment-card h2 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.payment-card h3 {
+  margin: 10px 0 20px;
+  color: #111827;
+}
+
+/* ===== TABS ===== */
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: #e5e7eb;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 6px;
+  margin: 0 3px;
+}
+
+.tabs button.active {
+  background: #2563eb;
+  color: white;
+}
+
+/* ===== SECTION ===== */
+.section {
+  margin-bottom: 20px;
+}
+
+.section h4 {
+  margin-bottom: 10px;
+}
+
+/* ===== UPI / CARD OPTIONS ===== */
+.upi-options {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.upi-options button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: #e5e7eb;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.upi-options button.active {
+  background: #10b981;
+  color: white;
+}
+
+/* ===== INPUT FIELDS ===== */
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: 0.3s;
+}
+
+input:focus,
+select:focus {
+  border-color: #2563eb;
+}
+
+/* ===== PAY BUTTON ===== */
+.pay-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background: #2563eb;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.pay-btn:hover {
+  background: #1d4ed8;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+
+  .main-content {
+    margin-left: 0;
+    padding: 15px;
+  }
+
+  .payment-card {
+    width: 100%;
+  }
+}

@@ -1,0 +1,54 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.cricketmain{
+    width: 100%;
+    background-image: url("https://t4.ftcdn.net/jpg/02/58/48/21/360_F_258482163_wmkHGJeGJ2b5mkdNjQV49tAUqQmBl5wX.jpg");
+    height: 500px;
+    background-repeat: no-repeat;
+    background-size:cover;
+    padding: 10px;
+}
+.alltournament{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color :maroon;
+    margin: 10px;
+}
+.iplphoto button , .wpl button, .t20wp button, .asiacup button{
+    width: 200px;
+    height: 40px;
+    border:lch(lightness chroma hue);
+    border-radius: 5px;
+   
+}
+.iplphoto button:hover{
+    background-color: chocolate;
+}
+.wpl button:hover{
+    background-color: chocolate;
+}
+.t20wp button:hover{
+    background-color: chocolate;
+}
+.asiacup button:hover{
+    background-color: chocolate;
+}
+/* BACK BUTTON ONLY */
+.event-container > button {
+  background: #1f2937;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.event-container > button:hover {
+  background: #111827;
+}

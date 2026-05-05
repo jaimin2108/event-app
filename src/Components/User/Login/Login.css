@@ -1,0 +1,101 @@
+/* Full screen center with gradient */
+.signin-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #5f2c82, #49a09d);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Login box */
+.signin-box {
+  background: #ffffff;
+  padding: 35px 30px;
+  width: 350px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Icon */
+.signin-icon {
+  margin-bottom: 10px;
+}
+
+/* Title */
+.signin-title {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 22px;
+}
+
+/* Inputs */
+.signin-input {
+  width: 100%;
+  padding: 10px 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.signin-input:focus {
+  border-color: #7b2cbf;
+  box-shadow: 0 0 5px rgba(123, 44, 191, 0.3);
+}
+
+/* Button */
+.signin-btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background: #7b2cbf;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.signin-btn:hover {
+  background: #5a189a;
+}
+
+/* Disabled button */
+.signin-btn:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+/* Register link */
+.register-link {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.register-link span {
+  color: #7b2cbf;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.register-link span:hover {
+  text-decoration: underline;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,59 @@
+/* Page container */
+.dashboard-container {
+  min-height: 100vh;
+  background: #f4f6f9;
+  padding: 30px;
+  font-family: Arial, sans-serif;
+}
+
+/* Heading */
+.dashboard-title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+/* Cards wrapper */
+.dashboard-cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Individual card */
+.card {
+  background: #fff;
+  width: 220px;
+  padding: 25px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+/* Hover effect */
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Card title */
+.card h3 {
+  margin-bottom: 10px;
+  color: #555;
+}
+
+/* Card value */
+.card p {
+  font-size: 22px;
+  font-weight: bold;
+  color: #667eea;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .dashboard-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+}

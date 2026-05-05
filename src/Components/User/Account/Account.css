@@ -1,0 +1,155 @@
+/* Page Background */
+.account-page {
+  background: linear-gradient(135deg, #7a0469, #300228);
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 50px;
+  font-family: Arial, sans-serif;
+}
+
+/* Card */
+.account-card {
+  width: 450px;
+  background: #300228;
+  border-radius: 12px;
+  overflow: hidden;
+  color: white;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* Header */
+.account-header {
+  background: #eb1ce1;
+  padding: 15px 20px;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+}
+
+/* Navigation */
+.account-nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: #56024a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.nav-left {
+  color:white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-left:hover {
+  text-decoration: underline;
+}
+
+.nav-right span {
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.nav-right span:hover {
+  text-decoration: underline;
+}
+
+/* Profile Image */
+.profile-section {
+  display: flex;
+  justify-content: center;
+  padding: 25px 0;
+}
+
+.profile-section img {
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  background: white;
+  padding: 5px;
+}
+
+/* Details Section */
+.details-section {
+  padding: 0 20px 25px;
+}
+
+.details-title {
+  margin-bottom: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+}
+
+/* Each Row */
+.detail-row {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Icons */
+.detail-row svg {
+  font-size: 16px;
+  min-width: 20px;
+}
+
+/* Input Field (RIGHT ALIGNED) */
+.detail-row input {
+  margin-left: auto;        /* 🔥 pushes input to right */
+  text-align: right;        /* 🔥 text right aligned */
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+  font-size: 14px;
+  width: 70%;
+}
+
+/* Disabled Input */
+.detail-row input:disabled {
+  opacity: 0.9;
+  cursor: default;
+}
+
+/* Edit Icon */
+.edit-icon {
+  margin-left: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  color: white;
+}
+
+.edit-icon:hover {
+  color: #00bfff;
+}
+
+.edit-icon.active {
+  color: #00bfff;
+}
+
+/* Bottom Button */
+.account-card span {
+  display: block;
+  text-align: center;
+  margin: 15px;
+  padding: 10px;
+  background: #eb1ce1;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.account-card span:hover {
+  background: #ff3df5;
+}

@@ -1,0 +1,170 @@
+/* *{
+    margin: 0;
+    padding:0;
+    list-style: none;
+    text-decoration: none;
+}
+.profile{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    
+}
+.sidebar{
+    position:fixed;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color:darkslateblue;
+
+}
+.sidebar ul a{
+    display: block;
+    height: 100%;
+    width: 100%;
+    color:white;
+    line-height: 65px;
+    font-size: 20px;
+    padding-left: 30px;
+    transition: .4s;
+}
+.sidebar ul li a:hover{
+    padding-left: 40px;
+    font-size: 25px;
+}
+.sidebar p{
+    padding-left: 30px;
+    opacity: 20px;
+    color: white;
+    margin-top: 20px;
+}
+.navbar{
+    height: 50px;
+    background-color:blueviolet;
+    width: 100%;
+}
+.Profilenavbar h2 {
+    color: white;
+    text-align: left;
+} */
+
+
+/* Container layout */
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  /* width: 100%; */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #3f318b;
+  height: 100vh;
+  color: white;
+  padding: 20px 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  margin: 20px 0;
+  padding-left: 20px;
+}
+
+.sidebar-link, .logout-link {
+  display: flex;
+  align-items:left;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+  width: 200px;
+}
+
+.sidebar-link:hover, .logout-link:hover {
+  background-color: #372c77;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.icon {
+  margin-right: 10px;
+}
+
+/* Section title (e.g. "Authentication") */
+.section-title {
+  margin: 30px 20px 10px;
+  font-size: 14px;
+  color: #ccc;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* Navbar */
+.navbar1 {
+  height: 60px;
+  background-color: #8e2de2; /* purple gradient */
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 25px;
+  border-top-right-radius: 10px;
+}
+
+.navbar-left h3 {
+  font-size: 24px;
+  margin: 0;
+  color: #000;
+  font-weight: bold;
+}
+
+/* Right side (Admin info) */
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.profile-circle {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.header-text .title {
+  font-size: 14px;
+  margin: 0;
+  font-weight: bold;
+  color: #000;
+}
+
+.header-text .subtitle {
+  font-size: 12px;
+  margin: 0;
+  color: #000;
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+}
+
+.content-area {
+  flex: 1;
+  padding: 20px;
+}

@@ -1,0 +1,45 @@
+.edituser-container{
+width:400px;
+margin:50px auto;
+padding:30px;
+background:#fff;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+border-radius:10px;
+}
+
+.edituser-container h2{
+text-align:center;
+margin-bottom:20px;
+}
+
+.edituser-container form{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.edituser-container input,
+.edituser-container select{
+padding:10px;
+border:1px solid #ccc;
+border-radius:5px;
+font-size:14px;
+}
+
+.edituser-container button{
+padding:12px;
+background:#007bff;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+font-size:16px;
+}
+
+.edituser-container button:hover{
+background:#0056b3;
+}
+
+.edituser-container h3{
+margin-top:10px;
+}

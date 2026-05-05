@@ -1,0 +1,47 @@
+/* FULL WIDTH CONTAINER */
+.admin-event-list {
+  width: 100%;
+  padding: 20px;
+}
+
+/* GRID: 3 CARDS PER ROW */
+.admin-event-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* EVENT CARD */
+.event-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 10px;
+  background: #fff;
+  text-align: center;
+}
+
+/* IMAGE FULL FIT */
+.event-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* DELETE BUTTON */
+.delete-btn {
+  margin-top: 10px;
+  background: red;
+  color: white;
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+}
+.event-box img {
+  width: 100%;
+  height: 120px;        /* same height for all (parent + child) */
+  object-fit: cover;    /* fill nicely without stretch */
+  object-position: center;
+  border-radius: 6px;
+}

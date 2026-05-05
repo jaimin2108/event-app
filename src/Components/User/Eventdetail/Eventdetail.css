@@ -1,0 +1,104 @@
+/* 🔥 MAIN CONTAINER */
+.event-detail-container {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* 🔥 EVENT HEADER */
+.event-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.event-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.event-status {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.event-status.active {
+  color: green;
+}
+
+.event-status.closed {
+  color: red;
+}
+
+/* 🔥 MATCH SECTION */
+.matches-title {
+  font-size: 24px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 5px;
+}
+
+/* 🔥 MATCH CARD */
+.match-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  background: #f9f9f9;
+  transition: 0.3s;
+}
+
+.match-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 🔥 MATCH INFO */
+.match-info h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.match-info p {
+  margin: 5px 0;
+  color: #555;
+}
+
+/* 🔥 PRICE */
+.match-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: green;
+}
+
+/* 🔥 BUTTON */
+.book-btn {
+  padding: 8px 15px;
+  background-color: #ff4d4d;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.book-btn:hover {
+  background-color: #e60000;
+}
+
+/* 🔥 CLOSED TEXT */
+.closed-text {
+  color: red;
+  font-weight: bold;
+}
+
+/* 🔥 EMPTY */
+.no-data {
+  text-align: center;
+  color: gray;
+  margin-top: 20px;
+}

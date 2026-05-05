@@ -1,0 +1,99 @@
+/* MAIN BACKGROUND */
+.admin-container {
+  padding: 30px;
+  min-height: 100vh;
+  background: #f8fafc; /* soft light gray */
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* TITLE */
+.admin-title {
+  text-align: center;
+  color: #1e293b;
+  margin-bottom: 30px;
+  font-size: 26px;
+  font-weight: 600;
+}
+
+/* EMPTY */
+.empty {
+  text-align: center;
+  color: #64748b;
+  font-size: 16px;
+}
+
+/* GRID */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* CARD */
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 18px;
+  color: #1e293b;
+  transition: 0.25s ease;
+  border: 1px solid #e2e8f0;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* HEADER */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.card-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* PRICE BADGE */
+.price {
+  background: #e0f2fe;
+  color: #0284c7;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* BODY */
+.card-body p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #475569;
+}
+
+/* FOOTER */
+.card-footer {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* DELETE BUTTON */
+.delete-btn {
+  background: #fee2e2;
+  border: none;
+  padding: 7px 14px;
+  color: #dc2626;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 13px;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+  color: #fff;
+}
