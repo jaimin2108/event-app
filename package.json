@@ -18,7 +18,11 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^11.0.5",
     "toast": "^0.5.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "id": "add-node-version",
+    "engines": {
+      "node": "18.x"
+    }
   },
   "scripts": {
     "start": "node --max-old-space-size=4096 node_modules/react-scripts/scripts/start.js",
