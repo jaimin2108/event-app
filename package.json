@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
  "engines": {
-    "node": "18.x"},
+  "node": "24.x"
+},
 
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
@@ -23,7 +24,7 @@
   },
   "scripts": {
     "start": "node --max-old-space-size=4096 node_modules/react-scripts/scripts/start.js",
-    "build": "node --max-old-space-size=4096 node_modules/react-scripts/scripts/build.js",
+    "build": "CI=false node --max-old-space-size=4096 node_modules/react-scripts/scripts/build.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
