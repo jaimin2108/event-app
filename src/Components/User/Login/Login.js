@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import "./Login.css";
-import { FaLock } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Cookies from "js-cookie";
+import { useNavigate, Link } from "react-router-dom";
+import "./Login.css";
+
+const BASE_URL = "https://backend-event-zlss.onrender.com/api/v1";
 
 function Login() {
   const navigate = useNavigate();
@@ -15,120 +15,92 @@ function Login() {
 
   const [loading, setLoading] = useState(false);
 
-  // ================= HANDLE INPUT =================
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  // ================= HANDLE LOGIN =================
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
 
     try {
+      setLoading(true);
+
       const res = await axios.post(
-        "https://backend-event-zlss.onrender.com/api/v1/user/login",
+        `${BASE_URL}/user/login`,
         formData
       );
 
-      console.log("LOGIN RESPONSE 👉", res.data);
+      console.log("LOGIN RESPONSE:", res.data);
 
-      const { token, user } = res.data;
+      if (res.data.success) {
+        alert("Login Successful ✅");
 
-      // ❌ Safety check
-      if (!user || !token) {
-        alert("Invalid login response ❌");
-        return;
+        // Save token/user
+        localStorage.setItem(
+          "token",
+          res.data.token
+        );
+
+        localStorage.setItem(
+          "user",
+          JSON.stringify(res.data.user)
+        );
+
+        navigate("/");
+      } else {
+        alert(res.data.message || "Login failed ❌");
       }
-
-      // ✅ STORE DATA
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-
-      Cookies.set("accessToken", token);
-      Cookies.set("userId", user._id);
-
-      // 🔥 UPDATE NAVBAR INSTANTLY
-      window.dispatchEvent(new Event("storage"));
-
-      alert("Login Successful ✅");
-
-      navigate("/");
-
     } catch (error) {
-      console.log("ERROR 👉", error.response?.data);
+      console.log(error);
 
-      // 🔥 BLOCK USER HANDLE
-      if (error.response?.status === 403) {
-        alert("🚫 Your account is blocked. Contact admin.");
-      } 
-      // 🔥 USER NOT FOUND
-      else if (error.response?.status === 404) {
-        alert("User not found ❌");
-      } 
-      // 🔥 WRONG PASSWORD
-      else if (error.response?.status === 400) {
-        alert("Invalid password ❌");
-      } 
-      // 🔥 OTHER ERROR
-      else {
-        alert(error.response?.data?.message || "Login failed ❌");
-      }
+      alert(
+        error.response?.data?.message ||
+          "Login failed ❌"
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="signin-container">
-      <form className="signin-box" onSubmit={handleSubmit}>
-        
-        {/* ICON */}
-        <div className="signin-icon">
-          <FaLock size={35} color="#7b2cbf" />
-        </div>
+    <div className="login-container">
+      <form
+        className="login-form"
+        onSubmit={handleSubmit}
+      >
+        <h2>Login</h2>
 
-        {/* TITLE */}
-        <h3 className="signin-title">Login</h3>
-
-        {/* EMAIL */}
         <input
           type="email"
           name="email"
-          className="signin-input"
-          placeholder="Email*"
+          placeholder="Enter Email"
           value={formData.email}
           onChange={handleChange}
           required
         />
 
-        {/* PASSWORD */}
         <input
           type="password"
           name="password"
-          className="signin-input"
-          placeholder="Password*"
+          placeholder="Enter Password"
           value={formData.password}
           onChange={handleChange}
           required
         />
 
-        {/* BUTTON */}
-        <button className="signin-btn" type="submit" disabled={loading}>
-          {loading ? "Logging in..." : "LOGIN"}
+        <button type="submit">
+          {loading ? "Logging in..." : "Login"}
         </button>
 
-        {/* REGISTER LINK */}
-        <p className="register-link">
+        <p>
           Don't have an account?{" "}
-          <span
-            onClick={() => navigate("/signup")}
-            style={{ cursor: "pointer", color: "#7b2cbf", fontWeight: "bold" }}
-          >
+          <Link to="/signup">
             Register
-          </span>
+          </Link>
         </p>
-
       </form>
     </div>
   );
