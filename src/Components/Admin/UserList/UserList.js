@@ -9,7 +9,7 @@ const AdminUserList = () => {
   // ================= FETCH USERS =================
   const getUsers = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/v1/user/all");
+      const res = await axios.get("https://backend-event-zlss.onrender.com/api/v1/user/all");
 
       console.log("USERS 👉", res.data);
 
@@ -33,7 +33,7 @@ const AdminUserList = () => {
       if (!confirmDelete) return;
 
       const res = await axios.delete(
-        `http://localhost:5000/api/v1/user/delete/${id}`
+        `https://backend-event-zlss.onrender.com/api/v1/user/delete/${id}`
       );
 
       if (res.data.success) {
@@ -52,7 +52,7 @@ const AdminUserList = () => {
   const toggleBlockUser = async (id) => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/v1/user/block/${id}`
+        `https://backend-event-zlss.onrender.com/api/v1/user/block/${id}`
       );
 
       if (res.data.success) {

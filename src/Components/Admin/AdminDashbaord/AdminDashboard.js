@@ -22,7 +22,7 @@ const AdminDashboard = () => {
       }
 
       const res = await axios.get(
-        "http://localhost:5000/api/v1/admin/dashboard", // ✅ FIXED
+        "https://backend-event-zlss.onrender.com/api/v1/admin/dashboard", // ✅ FIXED
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -42,6 +42,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     getStats();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

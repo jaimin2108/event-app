@@ -29,7 +29,7 @@ function PaymentPage() {
       }
 
       await axios.post(
-        "http://localhost:5000/api/v1/booking/create-booking",
+        "https://backend-event-zlss.onrender.com/api/v1/booking/create-booking",
         bookingData,
         {
           headers: { Authorization: `Bearer ${token}` },

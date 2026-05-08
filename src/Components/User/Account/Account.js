@@ -15,8 +15,6 @@ function Account() {
     phone: "",
   });
 
-  const [editField] = useState(null);
-
   // ================= FETCH USER =================
   const fetchUser = useCallback(async () => {
     try {
@@ -31,7 +29,7 @@ function Account() {
 
       // 🔥 CORRECT API
       const res = await axios.get(
-        `http://localhost:5000/api/v1/user/${userId}`,
+        `https://backend-event-zlss.onrender.com/api/v1/user/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -35,7 +35,7 @@ const Signup = () => {
       console.log("Sending registration data 👉", payload);
 
       const res = await axios.post(
-        "http://localhost:5000/api/v1/user/register",
+        "https://backend-event-zlss.onrender.com/api/v1/user/register",
         payload
       );
 

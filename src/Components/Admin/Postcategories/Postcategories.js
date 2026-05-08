@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Postcategories.css";
 
-const BASE_URL = "http://localhost:5000/api/v1";
+const BASE_URL = "https://backend-event-zlss.onrender.com/api/v1";
 
 function AdminPostCategories() {
   const [events, setEvents] = useState([]);

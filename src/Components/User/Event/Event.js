@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const API = "http://localhost:5000/api/v1/event";
+const API = "https://backend-event-zlss.onrender.com/api/v1/event";
 
 function EventPage() {
   const [events, setEvents] = useState([]);
@@ -42,7 +42,7 @@ function EventPage() {
 
           {e.image && (
             <img
-              src={e.image.startsWith('http') ? e.image : `http://localhost:5000/uploads/${e.image}`}
+              src={e.image.startsWith('http') ? e.image : `https://backend-event-zlss.onrender.com/uploads/${e.image}`}
               width="120"
               alt={e.title}
             />

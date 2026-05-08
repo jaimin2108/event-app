@@ -11,7 +11,7 @@ function AdminContact() {
   }, []);
 
   const fetchContacts = async () => {
-    const res = await axios.get("http://localhost:5000/api/contact");
+    const res = await axios.get("https://backend-event-zlss.onrender.com/api/contact");
     setContacts(res.data);
   };
 

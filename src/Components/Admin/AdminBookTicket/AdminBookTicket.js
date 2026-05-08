@@ -21,7 +21,7 @@ function AdminBookings() {
 
     try {
       await axios.delete(
-        `http://localhost:5000/api/v1/booking/delete-booking/${id}`
+        `https://backend-event-zlss.onrender.com/api/v1/booking/delete-booking/${id}`
       );
 
       setBookings(bookings.filter((b) => b._id !== id));

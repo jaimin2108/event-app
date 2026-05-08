@@ -10,7 +10,7 @@ const Addgallery = () => {
   // 🔥 Fetch all gallery
   const fetchGallery = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/gallery/all");
+      const res = await axios.get("https://backend-event-zlss.onrender.com/api/gallery/all");
       setGallery(res.data.data);
     } catch (err) {
       console.log(err);

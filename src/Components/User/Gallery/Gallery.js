@@ -7,7 +7,7 @@ function Gallery() {
  
   const itemsPerPage = 4; // show 2 images per page
   useEffect(() => {
-    fetch("http://localhost:5000/api/gallery/all")
+    fetch("https://backend-event-zlss.onrender.com/api/gallery/all")
       .then((res) => res.json())
       .then((data) => {
         setImages(data.data || []);
@@ -28,7 +28,7 @@ function Gallery() {
       <div className="gallery">
         {currentImages.map((item) => (
           <div className="card" key={item._id}>
-            <img src={`http://localhost:5000/uploads/${item.image}`} alt={item.name} />
+            <img src={`https://backend-event-zlss.onrender.com/uploads/${item.image}`} alt={item.name} />
             <h4>{item.name}</h4>
           </div>
         ))}

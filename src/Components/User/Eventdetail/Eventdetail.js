@@ -19,7 +19,7 @@ function EventDetailsPage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/v1/postcategories/all-posts", {
+      .get("https://backend-event-zlss.onrender.com/api/v1/postcategories/all-posts", {
         headers: { userid: userId },
       })
       .then((res) => {
@@ -39,7 +39,7 @@ function EventDetailsPage() {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/v1/postcategories/set-price",
+        "https://backend-event-zlss.onrender.com/api/v1/postcategories/set-price",
         { postId, price },
         { headers: { userid: userId } }
       );

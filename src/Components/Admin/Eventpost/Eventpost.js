@@ -197,7 +197,7 @@ function AdminEvents() {
 
                 {c.image && (
                   <img
-                    src={`http://localhost:5000/uploads/${c.image}`}
+                    src={`https://backend-event-zlss.onrender.com/uploads/${c.image}`}
                     alt=""
                   />
                 )}

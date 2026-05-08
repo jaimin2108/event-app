@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 
-const API = "http://localhost:5000/api/v1/event";
+const API = "https://backend-event-zlss.onrender.com/api/v1/event";
 
 function Events() {
   const { id } = useParams();
@@ -49,7 +49,7 @@ function Events() {
             style={{ border: "1px solid #ddd", padding: "10px", width: "200px", cursor: "pointer", borderRadius: "8px" }}
           >
             <img
-              src={`http://localhost:5000/uploads/${c.image}`}
+              src={`https://backend-event-zlss.onrender.com/uploads/${c.image}`}
               alt={c.title}
               style={{ width: "100%", height: "120px", objectFit: "cover", borderRadius: "6px" }}
             />

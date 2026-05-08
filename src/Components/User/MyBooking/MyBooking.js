@@ -12,7 +12,7 @@ const MyBooking = () => {
             const token = localStorage.getItem("token");
 
             const res = await axios.get(
-                "http://localhost:5000/api/v1/booking/my-bookings",
+                "https://backend-event-zlss.onrender.com/api/v1/booking/my-bookings",
                 {
                     headers: {
                         Authorization: `Bearer ${token}`

@@ -31,7 +31,7 @@ function EditUser() {
   const fetchUser = async (id) => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/v1/user/getCurrentuser/${id}`
+        `https://backend-event-zlss.onrender.com/api/v1/user/getCurrentuser/${id}`
       );
 
       const user = res.data.user;
@@ -71,7 +71,7 @@ function EditUser() {
       setLoading(true);
 
       const response = await axios.patch(
-        `http://localhost:5000/api/v1/user/update/${userId}`,
+        `https://backend-event-zlss.onrender.com/api/v1/user/update/${userId}`,
         formData
       );
 
