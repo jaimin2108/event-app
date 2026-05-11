@@ -10,15 +10,15 @@ function EventPage() {
 
   useEffect(() => {
     const load = async () => {
-      const res = await axios.get(`${API}/all-events`);
-      const parentEvents = res.data.events.filter(e => !e.parentEvent);
-      setEvents(parentEvents);
+      try {
+        const res = await axios.get(`${API}/all-events`);
+        const parentEvents = (res.data.events || []).filter(e => !e.parentEvent);
+        setEvents(parentEvents);
+      } catch (err) {
+        console.log(err);
+      }
     };
-
     load();
-
-    const interval = setInterval(load, 2000);
-    return () => clearInterval(interval);
   }, []);
 
   return (
