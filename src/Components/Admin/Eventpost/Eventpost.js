@@ -285,9 +285,6 @@ function AdminEvents() {
                 src={`${BACKEND_URL}${parent.image}`}
                 alt={parent.title}
                 className="event-image"
-                onError={(e) => {
-                  e.target.style.display = "none";
-                }}
               />
             )}
 
@@ -328,9 +325,6 @@ function AdminEvents() {
                     src={`${BACKEND_URL}${child.image}`}
                     alt={child.title}
                     className="event-image"
-                    onError={(e) => {
-                      e.target.style.display = "none";
-                    }}
                   />
                 )}
 
