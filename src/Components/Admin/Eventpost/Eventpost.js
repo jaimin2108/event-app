@@ -11,10 +11,14 @@ function AdminEvents() {
   const [parentTitle, setParentTitle] = useState("");
   const [childTitle, setChildTitle] = useState("");
 
+  const [parentImage, setParentImage] = useState(null);
+  const [childImage, setChildImage] = useState(null);
+
   const [selectedParentId, setSelectedParentId] = useState("");
   const [selectedParent, setSelectedParent] = useState(null);
 
   // ================= LOAD EVENTS =================
+
   const loadEvents = async () => {
 
     try {
@@ -38,6 +42,7 @@ function AdminEvents() {
   }, []);
 
   // ================= CREATE PARENT =================
+
   const createParent = async (e) => {
 
     e.preventDefault();
@@ -48,10 +53,21 @@ function AdminEvents() {
 
     try {
 
+      const formData = new FormData();
+
+      formData.append("title", parentTitle);
+
+      if (parentImage) {
+        formData.append("image", parentImage);
+      }
+
       const res = await axios.post(
         `${API}/create-event`,
+        formData,
         {
-          title: parentTitle,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
 
@@ -60,6 +76,7 @@ function AdminEvents() {
       alert("Parent Event Created ✅");
 
       setParentTitle("");
+      setParentImage(null);
 
       loadEvents();
 
@@ -78,6 +95,7 @@ function AdminEvents() {
   };
 
   // ================= CREATE CHILD =================
+
   const createChild = async (e) => {
 
     e.preventDefault();
@@ -90,11 +108,22 @@ function AdminEvents() {
 
     try {
 
+      const formData = new FormData();
+
+      formData.append("title", childTitle);
+      formData.append("parentEvent", selectedParentId);
+
+      if (childImage) {
+        formData.append("image", childImage);
+      }
+
       const res = await axios.post(
         `${API}/create-event`,
+        formData,
         {
-          title: childTitle,
-          parentEvent: selectedParentId,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
 
@@ -103,6 +132,7 @@ function AdminEvents() {
       alert("Child Event Created ✅");
 
       setChildTitle("");
+      setChildImage(null);
 
       loadEvents();
 
@@ -121,6 +151,7 @@ function AdminEvents() {
   };
 
   // ================= DELETE EVENT =================
+
   const deleteEvent = async (id, e) => {
 
     e.stopPropagation();
@@ -135,7 +166,6 @@ function AdminEvents() {
         `${API}/delete-event/${id}`
       );
 
-      // reset selected parent
       if (selectedParent?._id === id) {
 
         setSelectedParent(null);
@@ -154,11 +184,13 @@ function AdminEvents() {
   };
 
   // ================= FILTER PARENTS =================
+
   const parentEvents = events.filter(
     (event) => !event.parentEvent
   );
 
   // ================= FILTER CHILDREN =================
+
   const childEvents = events.filter(
     (event) =>
       event.parentEvent &&
@@ -189,6 +221,14 @@ function AdminEvents() {
           }
         />
 
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) =>
+            setParentImage(e.target.files[0])
+          }
+        />
+
         <button type="submit">
           Create Parent
         </button>
@@ -208,6 +248,14 @@ function AdminEvents() {
           value={childTitle}
           onChange={(e) =>
             setChildTitle(e.target.value)
+          }
+        />
+
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) =>
+            setChildImage(e.target.files[0])
           }
         />
 
@@ -277,6 +325,14 @@ function AdminEvents() {
             }}
           >
 
+            {parent.image && (
+              <img
+                src={parent.image}
+                alt={parent.title}
+                className="event-image"
+              />
+            )}
+
             <p>{parent.title}</p>
 
             <button
@@ -316,6 +372,14 @@ function AdminEvents() {
                 key={child._id}
                 className="event-card child-card"
               >
+
+                {child.image && (
+                  <img
+                    src={child.image}
+                    alt={child.title}
+                    className="event-image"
+                  />
+                )}
 
                 <p>{child.title}</p>
 
