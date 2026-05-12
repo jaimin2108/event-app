@@ -3,9 +3,9 @@ import axios from "axios";
 import "./Eventpost.css";
 
 const API = "https://backend-event-zlss.onrender.com/api/v1/event";
+const BACKEND_URL = "https://backend-event-zlss.onrender.com";
 
 function AdminEvents() {
-
   const [events, setEvents] = useState([]);
 
   const [parentTitle, setParentTitle] = useState("");
@@ -20,19 +20,13 @@ function AdminEvents() {
   // ================= LOAD EVENTS =================
 
   const loadEvents = async () => {
-
     try {
-
-      const res = await axios.get(
-        `${API}/all-events`
-      );
+      const res = await axios.get(`${API}/all-events`);
 
       console.log("EVENTS:", res.data);
 
       setEvents(res.data.events || []);
-
     } catch (err) {
-
       console.log("Load Error:", err);
     }
   };
@@ -44,7 +38,6 @@ function AdminEvents() {
   // ================= CREATE PARENT =================
 
   const createParent = async (e) => {
-
     e.preventDefault();
 
     if (!parentTitle) {
@@ -52,7 +45,6 @@ function AdminEvents() {
     }
 
     try {
-
       const formData = new FormData();
 
       formData.append("title", parentTitle);
@@ -79,17 +71,12 @@ function AdminEvents() {
       setParentImage(null);
 
       loadEvents();
-
     } catch (err) {
-
-      console.log(
-        "Create Parent Error:",
-        err.response
-      );
+      console.log("Create Parent Error:", err.response);
 
       alert(
         err.response?.data?.message ||
-        "Failed to create parent event"
+          "Failed to create parent event"
       );
     }
   };
@@ -97,7 +84,6 @@ function AdminEvents() {
   // ================= CREATE CHILD =================
 
   const createChild = async (e) => {
-
     e.preventDefault();
 
     if (!childTitle || !selectedParentId) {
@@ -107,7 +93,6 @@ function AdminEvents() {
     }
 
     try {
-
       const formData = new FormData();
 
       formData.append("title", childTitle);
@@ -135,17 +120,12 @@ function AdminEvents() {
       setChildImage(null);
 
       loadEvents();
-
     } catch (err) {
-
-      console.log(
-        "Create Child Error:",
-        err.response
-      );
+      console.log("Create Child Error:", err.response);
 
       alert(
         err.response?.data?.message ||
-        "Failed to create child event"
+          "Failed to create child event"
       );
     }
   };
@@ -153,7 +133,6 @@ function AdminEvents() {
   // ================= DELETE EVENT =================
 
   const deleteEvent = async (id, e) => {
-
     e.stopPropagation();
 
     if (!window.confirm("Delete this event?")) {
@@ -161,25 +140,18 @@ function AdminEvents() {
     }
 
     try {
-
       await axios.delete(
         `${API}/delete-event/${id}`
       );
 
       if (selectedParent?._id === id) {
-
         setSelectedParent(null);
         setSelectedParentId("");
       }
 
       loadEvents();
-
     } catch (err) {
-
-      console.log(
-        "Delete Error:",
-        err.response
-      );
+      console.log("Delete Error:", err.response);
     }
   };
 
@@ -194,15 +166,12 @@ function AdminEvents() {
   const childEvents = events.filter(
     (event) =>
       event.parentEvent &&
-      (
-        event.parentEvent._id === selectedParent?._id ||
-        event.parentEvent === selectedParent?._id
-      )
+      (event.parentEvent._id === selectedParent?._id ||
+        event.parentEvent === selectedParent?._id)
   );
 
   return (
     <div className="admin-events">
-
       <h2>Admin Events</h2>
 
       {/* ================= CREATE PARENT ================= */}
@@ -211,7 +180,6 @@ function AdminEvents() {
         className="form-box"
         onSubmit={createParent}
       >
-
         <input
           type="text"
           placeholder="Parent Event"
@@ -232,7 +200,6 @@ function AdminEvents() {
         <button type="submit">
           Create Parent
         </button>
-
       </form>
 
       {/* ================= CREATE CHILD ================= */}
@@ -241,7 +208,6 @@ function AdminEvents() {
         className="form-box"
         onSubmit={createChild}
       >
-
         <input
           type="text"
           placeholder="Child Event"
@@ -262,41 +228,34 @@ function AdminEvents() {
         <select
           value={selectedParentId}
           onChange={(e) => {
-
             const id = e.target.value;
 
             setSelectedParentId(id);
 
-            const parent =
-              parentEvents.find(
-                (p) => p._id === id
-              );
+            const parent = parentEvents.find(
+              (p) => p._id === id
+            );
 
             setSelectedParent(parent);
           }}
         >
-
           <option value="">
             Select Parent Event
           </option>
 
           {parentEvents.map((parent) => (
-
             <option
               key={parent._id}
               value={parent._id}
             >
               {parent.title}
             </option>
-
           ))}
-
         </select>
 
         <button type="submit">
           Create Child
         </button>
-
       </form>
 
       {/* ================= PARENT EVENTS ================= */}
@@ -304,13 +263,11 @@ function AdminEvents() {
       <h3>Parent Events</h3>
 
       <div className="event-list">
-
         {parentEvents.length === 0 && (
           <p>No parent events found</p>
         )}
 
         {parentEvents.map((parent) => (
-
           <div
             key={parent._id}
             className={`event-card ${
@@ -319,17 +276,18 @@ function AdminEvents() {
                 : ""
             }`}
             onClick={() => {
-
               setSelectedParent(parent);
               setSelectedParentId(parent._id);
             }}
           >
-
             {parent.image && (
               <img
-                src={parent.image}
+                src={`${BACKEND_URL}${parent.image}`}
                 alt={parent.title}
                 className="event-image"
+                onError={(e) => {
+                  e.target.style.display = "none";
+                }}
               />
             )}
 
@@ -342,19 +300,14 @@ function AdminEvents() {
             >
               Delete
             </button>
-
           </div>
-
         ))}
-
       </div>
 
       {/* ================= CHILD EVENTS ================= */}
 
       {selectedParent && (
-
         <>
-
           <h3>
             Child Events of{" "}
             {selectedParent.title}
@@ -365,19 +318,19 @@ function AdminEvents() {
           )}
 
           <div className="event-list">
-
             {childEvents.map((child) => (
-
               <div
                 key={child._id}
                 className="event-card child-card"
               >
-
                 {child.image && (
                   <img
-                    src={child.image}
+                    src={`${BACKEND_URL}${child.image}`}
                     alt={child.title}
                     className="event-image"
+                    onError={(e) => {
+                      e.target.style.display = "none";
+                    }}
                   />
                 )}
 
@@ -390,16 +343,11 @@ function AdminEvents() {
                 >
                   Delete
                 </button>
-
               </div>
-
             ))}
-
           </div>
-
         </>
       )}
-
     </div>
   );
 }
