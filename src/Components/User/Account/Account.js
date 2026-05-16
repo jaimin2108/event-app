@@ -1,9 +1,27 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+// ================= ACCOUNT.JS =================
+
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
+
+import {
+  useNavigate,
+} from "react-router-dom";
+
 import "./Account.css";
+
 import axios from "axios";
 import Cookies from "js-cookie";
-import { FaHome, FaUser, FaEnvelope, FaPhone, FaVenusMars } from "react-icons/fa";
+
+import {
+  FaHome,
+  FaUser,
+  FaEnvelope,
+  FaPhone,
+  FaVenusMars,
+} from "react-icons/fa";
 
 function Account() {
   const navigate = useNavigate();
@@ -16,18 +34,26 @@ function Account() {
   });
 
   // ================= FETCH USER =================
+
   const fetchUser = useCallback(async () => {
     try {
-      const userId = Cookies.get("userId");
-      const token = Cookies.get("accessToken");
 
-      // 🔥 If not logged in
+      // ✅ GET TOKEN + USERID
+      const userId =
+        Cookies.get("userId") ||
+        localStorage.getItem("userId");
+
+      const token =
+        Cookies.get("accessToken") ||
+        localStorage.getItem("token");
+
+      // ✅ IF NOT LOGIN
       if (!userId || !token) {
         navigate("/login");
         return;
       }
 
-      // 🔥 CORRECT API
+      // ✅ API CALL
       const res = await axios.get(
         `https://backend-event-zlss.onrender.com/api/v1/user/${userId}`,
         {
@@ -37,18 +63,30 @@ function Account() {
         }
       );
 
-      console.log("USER RESPONSE 👉", res.data); // Debug
+      console.log(
+        "USER RESPONSE 👉",
+        res.data
+      );
 
-      // 🔥 SET USER DATA
+      // ✅ SET USER DATA
       setUser({
-        name: res.data.user?.name || "",
-        email: res.data.user?.email || "",
-        gender: res.data.user?.gender || "",
-        phone: res.data.user?.mobile_number || "",
+        name:
+          res.data.user?.name || "",
+        email:
+          res.data.user?.email || "",
+        gender:
+          res.data.user?.gender || "",
+        phone:
+          res.data.user
+            ?.mobile_number || "",
       });
 
     } catch (err) {
-      console.log("Error:", err.response?.data || err.message);
+      console.log(
+        "Error:",
+        err.response?.data ||
+          err.message
+      );
     }
   }, [navigate]);
 
@@ -57,45 +95,82 @@ function Account() {
   }, [fetchUser]);
 
   // ================= HANDLE CHANGE =================
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+    const { name, value } =
+      e.target;
+
+    setUser({
+      ...user,
+      [name]: value,
+    });
   };
 
   return (
     <div className="account-page">
+
       <div className="account-card">
 
-        {/* HEADER */}
-        <div className="account-header">🔥 Account Details</div>
+        {/* ================= HEADER ================= */}
 
-        {/* NAV */}
+        <div className="account-header">
+          🔥 Account Details
+        </div>
+
+        {/* ================= NAV ================= */}
+
         <div className="account-nav">
-          <div className="nav-left" onClick={() => navigate("/")}>
+
+          <div
+            className="nav-left"
+            onClick={() =>
+              navigate("/")
+            }
+          >
             <FaHome /> HOME
           </div>
 
           <div className="nav-right">
-            <span onClick={() => navigate("/changepassword")}>
+
+            <span
+              onClick={() =>
+                navigate(
+                  "/changepassword"
+                )
+              }
+            >
               CHANGE PASSWORD
             </span>
+
           </div>
+
         </div>
 
-        {/* PROFILE IMAGE */}
+        {/* ================= PROFILE IMAGE ================= */}
+
         <div className="profile-section">
+
           <img
             src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
             alt="profile"
           />
+
         </div>
 
-        {/* DETAILS */}
+        {/* ================= DETAILS ================= */}
+
         <div className="details-section">
-          <h3 className="details-title">User Details</h3>
+
+          <h3 className="details-title">
+            User Details
+          </h3>
+
+          {/* NAME */}
 
           <div className="detail-row">
+
             <FaUser />
+
             <input
               type="text"
               name="name"
@@ -103,10 +178,15 @@ function Account() {
               onChange={handleChange}
               disabled
             />
+
           </div>
 
+          {/* EMAIL */}
+
           <div className="detail-row">
+
             <FaEnvelope />
+
             <input
               type="email"
               name="email"
@@ -114,10 +194,15 @@ function Account() {
               onChange={handleChange}
               disabled
             />
+
           </div>
 
+          {/* GENDER */}
+
           <div className="detail-row">
+
             <FaVenusMars />
+
             <input
               type="text"
               name="gender"
@@ -125,10 +210,15 @@ function Account() {
               onChange={handleChange}
               disabled
             />
+
           </div>
 
+          {/* PHONE */}
+
           <div className="detail-row">
+
             <FaPhone />
+
             <input
               type="text"
               name="phone"
@@ -136,18 +226,28 @@ function Account() {
               onChange={handleChange}
               disabled
             />
+
           </div>
+
         </div>
 
-        {/* EDIT BUTTON */}
+        {/* ================= EDIT BUTTON ================= */}
+
         <span
-          style={{ cursor: "pointer", color: "#7b2cbf", fontWeight: "bold" }}
-          onClick={() => navigate("/edituser")}
+          style={{
+            cursor: "pointer",
+            color: "#7b2cbf",
+            fontWeight: "bold",
+          }}
+          onClick={() =>
+            navigate("/edituser")
+          }
         >
           Change User Detail
         </span>
 
       </div>
+
     </div>
   );
 }

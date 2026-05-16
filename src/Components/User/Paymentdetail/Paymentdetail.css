@@ -1,101 +1,46 @@
-/* ===== GLOBAL RESET ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
-
-/* ===== LAYOUT ===== */
-.layout {
-  display: flex;
-  min-height: 100vh;
-  background: #f3f4f6;
-}
-
-/* ===== SIDEBAR ===== */
-.sidebar {
-  width: 220px;
-  height: 100vh;
-  background: #111827;
-  color: white;
-  position: fixed;
-  left: 0;
-  top: 0;
-  padding: 20px;
-}
-
-.logo {
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 20px;
-}
-
-.sidebar ul {
-  list-style: none;
-}
-
-.sidebar ul li {
-  padding: 12px;
-  margin: 10px 0;
-  cursor: pointer;
-  border-radius: 6px;
-  transition: 0.3s;
-}
-
-.sidebar ul li:hover {
-  background: #374151;
-}
-
-/* ===== MAIN CONTENT ===== */
-.main-content {
-  margin-left: 220px;
-  width: 100%;
-  padding: 30px;
-}
-
-/* ===== PAYMENT PAGE ===== */
 .payment-page {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
+  font-family: Arial;
 }
 
-/* ===== PAYMENT CARD ===== */
 .payment-card {
-  width: 400px;
-  background: white;
+  width: 90%;
+  max-width: 1100px;
+  display: flex;
+  gap: 20px;
+}
+
+/* LEFT */
+.left {
+  flex: 2;
+  background: #ffffff;
   padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-.payment-card h2 {
-  text-align: center;
+.left h2 {
   margin-bottom: 15px;
 }
 
-.payment-card h3 {
-  margin: 10px 0 20px;
-  color: #111827;
-}
-
-/* ===== TABS ===== */
 .tabs {
   display: flex;
-  justify-content: space-between;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
 .tabs button {
-  flex: 1;
-  padding: 10px;
+  padding: 10px 15px;
   border: none;
-  background: #e5e7eb;
   cursor: pointer;
-  transition: 0.3s;
+  background: #e5e7eb;
   border-radius: 6px;
-  margin: 0 3px;
+  font-weight: bold;
 }
 
 .tabs button.active {
@@ -103,83 +48,61 @@
   color: white;
 }
 
-/* ===== SECTION ===== */
-.section {
-  margin-bottom: 20px;
-}
-
-.section h4 {
-  margin-bottom: 10px;
-}
-
-/* ===== UPI / CARD OPTIONS ===== */
-.upi-options {
+.box {
   display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.upi-options button {
-  flex: 1;
-  padding: 10px;
-  border: none;
-  background: #e5e7eb;
-  cursor: pointer;
-  border-radius: 6px;
-  transition: 0.3s;
-}
-
-.upi-options button.active {
-  background: #10b981;
-  color: white;
-}
-
-/* ===== INPUT FIELDS ===== */
-input,
-select {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  outline: none;
-  transition: 0.3s;
-}
-
-input:focus,
-select:focus {
-  border-color: #2563eb;
-}
-
-/* ===== PAY BUTTON ===== */
-.pay-btn {
-  width: 100%;
+.box input,
+.box select {
   padding: 12px;
-  border: none;
-  background: #2563eb;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+}
+
+.box button {
+  padding: 12px;
+  background: #16a34a;
   color: white;
-  font-size: 16px;
+  border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: 0.3s;
+  font-weight: bold;
 }
 
-.pay-btn:hover {
-  background: #1d4ed8;
+.box button:disabled {
+  background: gray;
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .sidebar {
-    display: none;
-  }
+/* RIGHT */
+.right {
+  flex: 1;
+  background: #0f172a;
+  color: white;
+  padding: 25px;
+  border-radius: 12px;
+}
 
-  .main-content {
-    margin-left: 0;
-    padding: 15px;
-  }
+.summary p {
+  margin: 10px 0;
+  font-size: 15px;
+}
 
-  .payment-card {
-    width: 100%;
-  }
+.summary span {
+  color: #93c5fd;
+  font-weight: bold;
+}
+
+.summary h3 {
+  margin-top: 15px;
+  color: #22c55e;
+}
+
+/* ERROR */
+.error {
+  text-align: center;
+  padding: 30px;
+  color: red;
 }

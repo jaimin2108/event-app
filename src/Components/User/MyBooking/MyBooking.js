@@ -3,67 +3,80 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./MyBooking.css";
 
-const MyBooking = () => {
-    const [bookings, setBookings] = useState([]);
-    const navigate = useNavigate();
+function MyBooking() {
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-    const fetchBookings = async () => {
-        try {
-            const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
-            const res = await axios.get(
-                "https://backend-event-zlss.onrender.com/api/v1/booking/my-bookings",
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            );
+  const fetchBookings = async () => {
+    try {
+      const token = localStorage.getItem("token");
 
-            if (res.data.success) {
-                setBookings(res.data.bookings);
-            }
-
-        } catch (error) {
-            console.log("Booking Error", error);
+      const res = await axios.get(
+        "https://backend-event-zlss.onrender.com/api/v1/booking/my-bookings",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-    };
-    const handleDownload = async (b) => {
-        navigate("/download-ticket", { state: b });
-    };
+      );
 
-    useEffect(() => {
-        fetchBookings();
-    }, []);
+      console.log("BOOKINGS 👉", res.data);
 
-    return (
-        <div className="mybooking">
+      const data = res.data.bookings || res.data.data || [];
 
-            <h2>My Booking Details</h2>
+      setBookings(data);
+    } catch (err) {
+      setError("Failed to load bookings");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-            {bookings.length === 0 ? (
-                <p>No bookings found</p>
-            ) : (
-                <div className="booking-container">
-                    {bookings.map((b, index) => (
-                        <div className="booking-card" key={index}>
+  useEffect(() => {
+    fetchBookings();
+  }, []);
 
-                            <h3>{b.eventName}</h3>
+  const handleDownload = (b) => {
+    navigate("/download-ticket", { state: b });
+  };
 
-                            <p>🎟 Tickets: {b.tickets}</p>
-                            <p>💰 Total: ₹{b.totalPrice}</p>
-                            <p>📅 Date: {new Date(b.createdAt).toLocaleDateString()}</p>
-                            <button onClick={() => handleDownload(b)}>
-                                Download Ticket
-                            </button>
-                        </div>
+  if (loading) return <h2>Loading...</h2>;
+  if (error) return <h2>{error}</h2>;
 
-                    ))}
-                </div>
-            )}
+  return (
+    <div className="mybooking">
+      <h2>🎟 My Bookings</h2>
 
+      {bookings.length === 0 ? (
+        <p>No bookings found</p>
+      ) : (
+        <div className="booking-container">
+          {bookings.map((b, i) => (
+            <div className="booking-card" key={i}>
+              <h3>{b.eventName}</h3>
+
+              <p>Tickets: {b.tickets}</p>
+              <p>Total: ₹{b.totalPrice}</p>
+
+              <p>
+                Date:{" "}
+                {b.createdAt
+                  ? new Date(b.createdAt).toLocaleDateString()
+                  : "N/A"}
+              </p>
+
+              <button onClick={() => handleDownload(b)}>
+                Download Ticket
+              </button>
+            </div>
+          ))}
         </div>
-    );
-};
+      )}
+    </div>
+  );
+}
 
 export default MyBooking;

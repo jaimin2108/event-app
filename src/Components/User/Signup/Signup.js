@@ -1,171 +1,315 @@
 import React, { useState } from "react";
 import "./Signup.css";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
+
+import {
+  toast,
+  ToastContainer,
+} from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
+
 import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-  const [name, setName] = useState("");
-  const [mobile_number, setMobileNumber] = useState("");
-  const [gender, setGender] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   const navigate = useNavigate();
+
+  const [formData, setFormData] =
+    useState({
+      name: "",
+      mobile_number: "",
+      gender: "",
+      email: "",
+      password: "",
+    });
+
+  const [loading, setLoading] =
+    useState(false);
+
+  // ================= HANDLE CHANGE =================
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]:
+        e.target.value,
+    });
+  };
+
+  // ================= HANDLE SUBMIT =================
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // ✅ FRONTEND VALIDATION
-    if (!name || !email || !gender || !mobile_number || !password) {
-      toast.error("All fields are required");
+    const {
+      name,
+      email,
+      password,
+      mobile_number,
+      gender,
+    } = formData;
+
+    // ================= VALIDATION =================
+
+    if (
+      !name ||
+      !email ||
+      !password ||
+      !mobile_number ||
+      !gender
+    ) {
+      toast.error(
+        "All fields are required ❌"
+      );
       return;
     }
 
     try {
-      const payload = {
-        name: name.trim(),
-        email: email.trim(),
-        gender, // ✅ MUST BE: Male/Female/Other
-        mobile_number: mobile_number.trim(),
-        password,
-      };
+      setLoading(true);
 
-      console.log("Sending registration data 👉", payload);
+      console.log(
+        "REGISTER DATA 👉",
+        formData
+      );
+
+      // ================= API =================
 
       const res = await axios.post(
         "https://backend-event-zlss.onrender.com/api/v1/user/register",
-        payload
+        formData
       );
 
-      console.log("SUCCESS 👉", res.data);
+      console.log(
+        "REGISTER RESPONSE 👉",
+        res.data
+      );
 
-      toast.success(res.data.message);
+      // ================= SUCCESS =================
 
-      // ✅ CLEAR FORM
-      setName("");
-      setEmail("");
-      setGender("");
-      setMobileNumber("");
-      setPassword("");
+      if (res.data.success) {
+        toast.success(
+          "User Registered Successfully ✅",
+          {
+            position:
+              "top-center",
+            autoClose: 3000,
+            theme: "colored",
+          }
+        );
 
-      // ✅ REDIRECT TO LOGIN
-      navigate("/login");
+        // CLEAR FORM
+        setFormData({
+          name: "",
+          mobile_number: "",
+          gender: "",
+          email: "",
+          password: "",
+        });
 
+        // REDIRECT TO LOGIN
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
+      }
     } catch (error) {
-      console.log("ERROR 👉", error.response?.data || error.message);
+      console.log(
+        "REGISTER ERROR 👉",
+        error.response?.data ||
+          error.message
+      );
 
       toast.error(
-        error.response?.data?.message || "Registration failed ❌"
+        error.response?.data
+          ?.message ||
+          "Registration failed ❌",
+        {
+          position:
+            "top-center",
+          autoClose: 3000,
+          theme: "colored",
+        }
       );
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <>
       <div className="registrationform">
-        <form onSubmit={handleSubmit} className="register-form">
-          <h3>Registration Form</h3>
 
-          {/* NAME */}
+        <form
+          className="register-form"
+          onSubmit={handleSubmit}
+        >
+          <h2>Register</h2>
+
+          {/* ================= NAME ================= */}
+
           <div>
             <label>Name</label>
+
             <input
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              name="name"
+              value={formData.name}
+              onChange={
+                handleChange
+              }
               placeholder="Enter your name"
               required
             />
           </div>
 
-          {/* MOBILE */}
+          {/* ================= MOBILE ================= */}
+
           <div>
-            <label>Mobile Number</label>
+            <label>
+              Mobile Number
+            </label>
+
             <input
               type="text"
-              value={mobile_number}
-              onChange={(e) => setMobileNumber(e.target.value)}
+              name="mobile_number"
+              value={
+                formData.mobile_number
+              }
+              onChange={
+                handleChange
+              }
               placeholder="Enter mobile number"
               required
             />
           </div>
 
-          {/* GENDER */}
+          {/* ================= GENDER ================= */}
+
           <div>
             <label>Gender</label>
-            <div>
+
+            <div className="gender-box">
+
               <label>
                 <input
                   type="radio"
+                  name="gender"
                   value="Male"
-                  checked={gender === "Male"}
-                  onChange={(e) => setGender(e.target.value)}
+                  checked={
+                    formData.gender ===
+                    "Male"
+                  }
+                  onChange={
+                    handleChange
+                  }
                   required
-                /> Male
+                />
+                Male
               </label>
 
               <label>
                 <input
                   type="radio"
+                  name="gender"
                   value="Female"
-                  checked={gender === "Female"}
-                  onChange={(e) => setGender(e.target.value)}
-                /> Female
+                  checked={
+                    formData.gender ===
+                    "Female"
+                  }
+                  onChange={
+                    handleChange
+                  }
+                />
+                Female
               </label>
 
               <label>
                 <input
                   type="radio"
+                  name="gender"
                   value="Other"
-                  checked={gender === "Other"}
-                  onChange={(e) => setGender(e.target.value)}
-                /> Other
+                  checked={
+                    formData.gender ===
+                    "Other"
+                  }
+                  onChange={
+                    handleChange
+                  }
+                />
+                Other
               </label>
+
             </div>
           </div>
 
-          {/* EMAIL */}
+          {/* ================= EMAIL ================= */}
+
           <div>
             <label>Email</label>
+
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
+              name="email"
+              value={formData.email}
+              onChange={
+                handleChange
+              }
+              placeholder="Enter email"
               required
             />
           </div>
 
-          {/* PASSWORD */}
+          {/* ================= PASSWORD ================= */}
+
           <div>
             <label>Password</label>
+
             <input
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter strong password"
+              name="password"
+              value={
+                formData.password
+              }
+              onChange={
+                handleChange
+              }
+              placeholder="Enter password"
               required
             />
           </div>
 
-          <button type="submit">Register</button>
+          {/* ================= BUTTON ================= */}
 
-          {/* 🔥 LOGIN LINK */}
-          <p style={{ marginTop: "10px" }}>
-            Already have an account?{" "}
+          <button type="submit">
+            {loading
+              ? "Registering..."
+              : "Register"}
+          </button>
+
+          {/* ================= LOGIN LINK ================= */}
+
+          <p className="login-link">
+
+            Already have an account?
+
             <span
-              style={{ color: "#7b2cbf", cursor: "pointer", fontWeight: "bold" }}
-              onClick={() => navigate("/login")}
+              onClick={() =>
+                navigate("/login")
+              }
             >
               Login
             </span>
+
           </p>
         </form>
       </div>
 
-      <ToastContainer position="top-right" autoClose={3000} />
+      {/* ================= TOAST ================= */}
+
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        theme="colored"
+      />
     </>
   );
 };

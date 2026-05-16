@@ -1,107 +1,214 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+// ================= LOGIN.JS =================
+
+import React, {
+  useState,
+} from "react";
+
 import "./Login.css";
 
-const BASE_URL = "https://backend-event-zlss.onrender.com/api/v1";
+import axios from "axios";
+
+import {
+  useNavigate,
+  Link,
+} from "react-router-dom";
+
+import Cookies from "js-cookie";
 
 function Login() {
-  const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const navigate =
+    useNavigate();
 
-  const [loading, setLoading] = useState(false);
+  const [formData,
+    setFormData] =
+    useState({
+      email: "",
+      password: "",
+    });
+
+  const [loading,
+    setLoading] =
+    useState(false);
+
+  // ================= HANDLE CHANGE =================
 
   const handleChange = (e) => {
+
+    const { name, value } =
+      e.target;
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // ================= HANDLE LOGIN =================
 
-    try {
-      setLoading(true);
+  const handleLogin =
+    async (e) => {
 
-      const res = await axios.post(
-        `${BASE_URL}/user/login`,
-        formData
-      );
+      e.preventDefault();
 
-      console.log("LOGIN RESPONSE:", res.data);
+      try {
 
-      if (res.data.success) {
-        alert("Login Successful ✅");
+        setLoading(true);
 
-        // Save token/user
+        const res =
+          await axios.post(
+            "https://backend-event-zlss.onrender.com/api/v1/user/login",
+            formData
+          );
+
+        console.log(
+          "LOGIN RESPONSE 👉",
+          res.data
+        );
+
+        // ================= GET DATA =================
+
+        const token =
+          res.data.token;
+
+        const user =
+          res.data.user;
+
+        // ================= SAVE LOCAL STORAGE =================
+
         localStorage.setItem(
           "token",
-          res.data.token
+          token
         );
 
         localStorage.setItem(
           "user",
-          JSON.stringify(res.data.user)
+          JSON.stringify(
+            user
+          )
         );
 
-        navigate("/");
-      } else {
-        alert(res.data.message || "Login failed ❌");
-      }
-    } catch (error) {
-      console.log(error);
+        localStorage.setItem(
+          "userId",
+          user._id
+        );
 
-      alert(
-        error.response?.data?.message ||
-          "Login failed ❌"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+        // ================= SAVE COOKIES =================
+
+        Cookies.set(
+          "accessToken",
+          token
+        );
+
+        Cookies.set(
+          "userId",
+          user._id
+        );
+
+        // ================= UPDATE NAVBAR =================
+
+        window.dispatchEvent(
+          new Event(
+            "userChanged"
+          )
+        );
+
+        // ================= NAVIGATE =================
+
+        navigate("/");
+
+      } catch (err) {
+
+        console.log(
+          "LOGIN ERROR 👉",
+          err.response?.data ||
+            err.message
+        );
+
+        alert(
+          err.response?.data
+            ?.message ||
+            "Login Failed"
+        );
+
+      } finally {
+
+        setLoading(false);
+
+      }
+    };
 
   return (
-    <div className="login-container">
-      <form
-        className="login-form"
-        onSubmit={handleSubmit}
-      >
+
+    <div className="login-page">
+
+      <div className="login-box">
+
         <h2>Login</h2>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Enter Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
+        <form
+          onSubmit={
+            handleLogin
+          }
+        >
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Enter Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
+          {/* EMAIL */}
 
-        <button type="submit">
-          {loading ? "Logging in..." : "Login"}
-        </button>
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter Email"
+            value={
+              formData.email
+            }
+            onChange={
+              handleChange
+            }
+            required
+          />
+
+          {/* PASSWORD */}
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter Password"
+            value={
+              formData.password
+            }
+            onChange={
+              handleChange
+            }
+            required
+          />
+
+          {/* BUTTON */}
+
+          <button
+            type="submit"
+            disabled={loading}
+          >
+            {loading
+              ? "Loading..."
+              : "LOGIN"}
+          </button>
+
+        </form>
+
+        {/* SIGNUP */}
 
         <p>
-          Don't have an account?{" "}
+
+          Don't have account?{" "}
+
           <Link to="/signup">
-            Register
+            Signup
           </Link>
+
         </p>
-      </form>
+
+      </div>
+
     </div>
   );
 }
