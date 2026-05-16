@@ -1,158 +1,277 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
+
 .homepage{
-    background-image:url("https://www.showtimeevent.com/images/main-slider/event-management-company.webp");
-     background-repeat: no-repeat;
-     width: 100%;
-     height: 100%;
-     background-size:cover;
+    background-image: url("https://www.showtimeevent.com/images/main-slider/event-management-company.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    min-height: 100vh;
+    padding-bottom: 50px;
 }
+
+/* ================= HEADING ================= */
+
 .heading1{
     width: 50%;
-    margin-top: 5px;
     padding-top: 100px;
-    text-align: left;
-    margin-left: 20px;
-    color: white;
-   
-   
-}
-.heading1 p{
-    margin-top:100px;
-    color: white;
-}
-.heading2{
-     width: 50%;
-    margin-top: 50px;
-    text-align: left;
     margin-left: 20px;
     color: white;
 }
-.submitemail{
-     width: 50%;
-    margin-top: 50px;
-    text-align: left;
-    margin-left: 20px;
-    padding-bottom: 20px;
-   
-}
-.submitemail input {
-    height: 50px;
-    width: 200px;
-    border-radius: 10px;
-    border-color: white;
-    text-align: center;
-   
-  
-}
-.submitemail button{
-     height: 50px;
-    width: 100px;
-    border-radius:10px;
-    background-color:darkorange;
-    text-align: center;
-    margin-left: 5px;
 
+.heading1 h1{
+    font-size: 50px;
+    line-height: 65px;
 }
-.submitemail button:hover {
-    background-color: aliceblue;
+
+.heading1 p{
+    margin-top: 40px;
+    color: white;
+    line-height: 28px;
+    font-size: 18px;
 }
+
+.heading2{
+    width: 50%;
+    margin-top: 40px;
+    margin-left: 20px;
+    color: white;
+}
+
+.heading2 h2{
+    font-size: 35px;
+}
+
+/* ================= EMAIL ================= */
+
+.submitemail{
+    width: 50%;
+    margin-top: 40px;
+    margin-left: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.submitemail input{
+    height: 50px;
+    width: 250px;
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+    outline: none;
+    font-size: 16px;
+}
+
+.submitemail button{
+    height: 50px;
+    width: 120px;
+    border-radius: 10px;
+    border: none;
+    background-color: darkorange;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.submitemail button:hover{
+    background-color: white;
+}
+
+/* ================= BOX ================= */
+
 .box{
-   
     margin: 20px;
-    padding: 20px;
-    background-color:black;
+    padding: 25px;
+    background-color: black;
+    border-radius: 10px;
 }
+
 .firstrow{
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
+    gap: 20px;
     color: white;
-    padding: 5px;
+    padding: 10px 0;
 }
-.firstrow1{
-    width: 50%;
-}
+
+.firstrow1,
 .firstrow2{
     width: 50%;
-    
-    justify-content: left;
 }
+
 .secondrow{
-    width: 100%;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    color:chocolate;
+    gap: 20px;
+    color: chocolate;
     padding-top: 20px;
 }
 
+.secondrow1,
 .secondrow2{
-    justify-content:flex-start;
-    color: chocolate;
-    padding: 20px;
+    width: 50%;
 }
+
 .thirdrow{
-    width: 100%;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    color:white;
-    padding-top: 30px;
-    padding-bottom: 30p;
-     
-}
-.box2{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    gap: 20px;
+    color: white;
     padding-top: 30px;
     padding-bottom: 30px;
-    padding-left: 30px;
+}
+
+.thirdrow1,
+.thirdrow2{
+    width: 50%;
+}
+
+/* ================= BOX 2 ================= */
+
+.box2{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 30px;
     margin: 20px;
-   
+    flex-wrap: wrap;
 }
-.firstcolumn{
-   width: 33%;
-   
-}
-.secondcolumn{
-    width: 33%;
-}
+
+.firstcolumn,
+.secondcolumn,
 .thirdcolumn{
- width: 33%;
+    flex: 1;
+    min-width: 250px;
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
 }
+
+/* ================= BOX 3 ================= */
+
 .box3{
-    width: 80%;
-    margin-left: 150px;
-    margin-right: 100px;
-    margin-bottom: 50px;
+    width: 85%;
+    margin: 40px auto;
     background-color: darkorchid;
     border-radius: 15px;
-    height: 150px;
+    min-height: 150px;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+    gap: 20px;
+    flex-wrap: wrap;
+}
 
-}
 .requestearly{
-    padding-left: 100px;
-    width: 70%;
-    padding-top: 40px;
+    flex: 1;
 }
+
+.requestearly h2{
+    color: white;
+    font-size: 32px;
+}
+
+.requestearly p{
+    color: white;
+    margin-top: 10px;
+}
+
 .getstartedbtn{
-    width: 30%;
-    padding-top: 50px;
-    padding-left: 20pz;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 .getstartedbtn button{
     width: 200px;
     height: 50px;
     border-radius: 10px;
-    font-size: 20px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
 }
-.getstartedbtn  button:hover{
-    background-color:burlywood;
+
+.getstartedbtn button:hover{
+    background-color: burlywood;
+}
+
+/* ================= MOBILE ================= */
+
+@media screen and (max-width: 768px){
+
+    .heading1,
+    .heading2,
+    .submitemail{
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+
+    .heading1{
+        padding-top: 60px;
+    }
+
+    .heading1 h1{
+        font-size: 32px;
+        line-height: 45px;
+    }
+
+    .heading1 p{
+        font-size: 16px;
+        line-height: 25px;
+    }
+
+    .heading2 h2{
+        font-size: 24px;
+    }
+
+    .submitemail{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .submitemail input,
+    .submitemail button{
+        width: 100%;
+    }
+
+    .firstrow,
+    .secondrow,
+    .thirdrow{
+        flex-direction: column;
+    }
+
+    .firstrow1,
+    .firstrow2,
+    .secondrow1,
+    .secondrow2,
+    .thirdrow1,
+    .thirdrow2{
+        width: 100%;
+    }
+
+    .box2{
+        flex-direction: column;
+    }
+
+    .box3{
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .requestearly h2{
+        font-size: 24px;
+    }
+
+    .getstartedbtn button{
+        width: 100%;
+    }
 }

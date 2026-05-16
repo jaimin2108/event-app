@@ -1,15 +1,6 @@
-// ================= EVENTPAGE.JS =================
-
-import React, {
-  useEffect,
-  useState,
-} from "react";
-
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-
-import {
-  useNavigate,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const API =
   "https://backend-event-zlss.onrender.com/api/v1/event";
@@ -18,14 +9,10 @@ const BACKEND_URL =
   "https://backend-event-zlss.onrender.com";
 
 function EventPage() {
-  const [events, setEvents] =
-    useState([]);
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [loading, setLoading] =
-    useState(true);
-
-  const navigate =
-    useNavigate();
+  const navigate = useNavigate();
 
   // ================= LOAD EVENTS =================
 
@@ -41,56 +28,53 @@ function EventPage() {
         `${API}/all-events`
       );
 
+      console.log("FULL API DATA:", res.data);
+
       // ONLY PARENT EVENTS
 
       const parentEvents = (
         res.data.events || []
-      ).filter(
-        (event) => !event.parentEvent
-      );
+      ).filter((event) => !event.parentEvent);
 
-      console.log(
-        "EVENTS:",
-        parentEvents
-      );
+      console.log("PARENT EVENTS:", parentEvents);
 
       setEvents(parentEvents);
     } catch (err) {
-      console.log(
-        "EVENT FETCH ERROR:",
-        err
-      );
+      console.log("EVENT FETCH ERROR:", err);
     } finally {
       setLoading(false);
     }
   };
 
-  // ================= IMAGE URL FIX =================
+  // ================= IMAGE URL =================
 
   const getImageUrl = (image) => {
-    // NO IMAGE
-
     if (!image) {
-      return "https://via.placeholder.com/300x200?text=No+Image";
+      return "https://dummyimage.com/600x400/cccccc/000000&text=No+Image";
     }
 
-    // FULL URL
+    console.log("ORIGINAL IMAGE:", image);
 
-    if (
-      image.startsWith("http")
-    ) {
+    // IF FULL URL
+    if (image.startsWith("http")) {
       return image;
     }
 
-    // RELATIVE URL
+    // REMOVE EXTRA SLASHES
+    const cleanImage = image.replace(/\\/g, "/");
 
-    if (
-      image.startsWith("/")
-    ) {
-      return `${BACKEND_URL}${image}`;
+    // IF IMAGE ALREADY STARTS WITH uploads
+    if (cleanImage.startsWith("uploads")) {
+      return `${BACKEND_URL}/${cleanImage}`;
     }
 
-    return `${BACKEND_URL}/${image}`;
+    // IF IMAGE STARTS WITH /
+    if (cleanImage.startsWith("/")) {
+      return `${BACKEND_URL}${cleanImage}`;
+    }
+
+    // DEFAULT
+    return `${BACKEND_URL}/uploads/${cleanImage}`;
   };
 
   // ================= UI =================
@@ -103,7 +87,7 @@ function EventPage() {
         minHeight: "100vh",
       }}
     >
-      {/* ================= TITLE ================= */}
+      {/* TITLE */}
 
       <h1
         style={{
@@ -116,32 +100,23 @@ function EventPage() {
         EVENTS
       </h1>
 
-      {/* ================= LOADING ================= */}
+      {/* LOADING */}
 
       {loading && (
-        <h2
-          style={{
-            textAlign: "center",
-          }}
-        >
+        <h2 style={{ textAlign: "center" }}>
           Loading...
         </h2>
       )}
 
-      {/* ================= NO EVENTS ================= */}
+      {/* NO EVENTS */}
 
-      {!loading &&
-        events.length === 0 && (
-          <h2
-            style={{
-              textAlign: "center",
-            }}
-          >
-            No Events Found
-          </h2>
-        )}
+      {!loading && events.length === 0 && (
+        <h2 style={{ textAlign: "center" }}>
+          No Events Found
+        </h2>
+      )}
 
-      {/* ================= EVENT GRID ================= */}
+      {/* EVENT GRID */}
 
       <div
         style={{
@@ -155,15 +130,11 @@ function EventPage() {
           <div
             key={e?._id}
             onClick={() =>
-              navigate(
-                `/events/${e?._id}`,
-                {
-                  state: {
-                    parentTitle:
-                      e?.title,
-                  },
-                }
-              )
+              navigate(`/events/${e?._id}`, {
+                state: {
+                  parentTitle: e?.title,
+                },
+              })
             }
             style={{
               background: "#fff",
@@ -172,16 +143,13 @@ function EventPage() {
               cursor: "pointer",
               boxShadow:
                 "0 2px 10px rgba(0,0,0,0.1)",
-              transition:
-                "0.3s ease",
+              transition: "0.3s",
             }}
           >
-            {/* ================= IMAGE ================= */}
+            {/* IMAGE */}
 
             <img
-              src={getImageUrl(
-                e?.image
-              )}
+              src={getImageUrl(e?.image)}
               alt={e?.title}
               style={{
                 width: "100%",
@@ -190,21 +158,18 @@ function EventPage() {
               }}
               onError={(err) => {
                 console.log(
-                  "IMAGE ERROR"
+                  "FAILED IMAGE:",
+                  err.target.src
                 );
 
                 err.target.src =
-                  "https://via.placeholder.com/300x200?text=No+Image";
+                  "https://dummyimage.com/600x400/cccccc/000000&text=No+Image";
               }}
             />
 
-            {/* ================= TITLE ================= */}
+            {/* TITLE */}
 
-            <div
-              style={{
-                padding: "15px",
-              }}
-            >
+            <div style={{ padding: "15px" }}>
               <h2
                 style={{
                   textAlign: "center",

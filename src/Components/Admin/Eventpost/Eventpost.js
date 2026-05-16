@@ -1,33 +1,70 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
+
 import axios from "axios";
+
 import "./Eventpost.css";
 
-const API = "https://backend-event-zlss.onrender.com/api/v1/event";
-const BACKEND_URL = "https://backend-event-zlss.onrender.com";
+const API =
+  "https://backend-event-zlss.onrender.com/api/v1/event";
+
+const BACKEND_URL =
+  "https://backend-event-zlss.onrender.com";
 
 function AdminEvents() {
-  const [events, setEvents] = useState([]);
+  // ================= STATES =================
 
-  const [parentTitle, setParentTitle] = useState("");
-  const [childTitle, setChildTitle] = useState("");
+  const [events, setEvents] =
+    useState([]);
 
-  const [parentImage, setParentImage] = useState(null);
-  const [childImage, setChildImage] = useState(null);
+  const [parentTitle, setParentTitle] =
+    useState("");
 
-  const [selectedParentId, setSelectedParentId] = useState("");
-  const [selectedParent, setSelectedParent] = useState(null);
+  const [childTitle, setChildTitle] =
+    useState("");
+
+  const [parentImage, setParentImage] =
+    useState(null);
+
+  const [childImage, setChildImage] =
+    useState(null);
+
+  const [
+    selectedParentId,
+    setSelectedParentId,
+  ] = useState("");
+
+  const [
+    selectedParent,
+    setSelectedParent,
+  ] = useState(null);
 
   // ================= LOAD EVENTS =================
 
   const loadEvents = async () => {
     try {
-      const res = await axios.get(`${API}/all-events`);
+      const res =
+        await axios.get(
+          `${API}/all-events`
+        );
 
-      console.log("EVENTS:", res.data);
+      console.log(
+        "EVENTS:",
+        res.data
+      );
 
-      setEvents(res.data.events || []);
+      setEvents(
+        res.data.events || []
+      );
+
     } catch (err) {
-      console.log("Load Error:", err);
+
+      console.log(
+        "Load Error:",
+        err
+      );
     }
   };
 
@@ -35,157 +72,259 @@ function AdminEvents() {
     loadEvents();
   }, []);
 
+  // ================= IMAGE URL =================
+
+  const getImageUrl = (image) => {
+
+    if (!image) {
+      return "https://dummyimage.com/300x200/cccccc/000000&text=No+Image";
+    }
+
+    // FULL URL
+
+    if (
+      image.startsWith("http")
+    ) {
+      return image;
+    }
+
+    // RELATIVE URL
+
+    return `${BACKEND_URL}${image}`;
+  };
+
   // ================= CREATE PARENT =================
 
-  const createParent = async (e) => {
-    e.preventDefault();
+  const createParent =
+    async (e) => {
 
-    if (!parentTitle) {
-      return alert("Enter parent title");
-    }
+      e.preventDefault();
 
-    try {
-      const formData = new FormData();
-
-      formData.append("title", parentTitle);
-
-      if (parentImage) {
-        formData.append("image", parentImage);
+      if (!parentTitle) {
+        return alert(
+          "Enter parent title"
+        );
       }
 
-      const res = await axios.post(
-        `${API}/create-event`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+      try {
+
+        const formData =
+          new FormData();
+
+        formData.append(
+          "title",
+          parentTitle
+        );
+
+        if (parentImage) {
+          formData.append(
+            "image",
+            parentImage
+          );
         }
-      );
 
-      console.log(res.data);
+        const res =
+          await axios.post(
+            `${API}/create-event`,
+            formData,
+            {
+              headers: {
+                "Content-Type":
+                  "multipart/form-data",
+              },
+            }
+          );
 
-      alert("Parent Event Created ✅");
+        console.log(res.data);
 
-      setParentTitle("");
-      setParentImage(null);
+        alert(
+          "Parent Event Created ✅"
+        );
 
-      loadEvents();
-    } catch (err) {
-      console.log("Create Parent Error:", err.response);
+        setParentTitle("");
+        setParentImage(null);
 
-      alert(
-        err.response?.data?.message ||
-          "Failed to create parent event"
-      );
-    }
-  };
+        loadEvents();
+
+      } catch (err) {
+
+        console.log(
+          "Create Parent Error:",
+          err.response
+        );
+
+        alert(
+          err.response?.data
+            ?.message ||
+            "Failed to create parent event"
+        );
+      }
+    };
 
   // ================= CREATE CHILD =================
 
-  const createChild = async (e) => {
-    e.preventDefault();
+  const createChild =
+    async (e) => {
 
-    if (!childTitle || !selectedParentId) {
-      return alert(
-        "Enter child title & select parent"
-      );
-    }
+      e.preventDefault();
 
-    try {
-      const formData = new FormData();
-
-      formData.append("title", childTitle);
-      formData.append("parentEvent", selectedParentId);
-
-      if (childImage) {
-        formData.append("image", childImage);
+      if (
+        !childTitle ||
+        !selectedParentId
+      ) {
+        return alert(
+          "Enter child title & select parent"
+        );
       }
 
-      const res = await axios.post(
-        `${API}/create-event`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+      try {
+
+        const formData =
+          new FormData();
+
+        formData.append(
+          "title",
+          childTitle
+        );
+
+        formData.append(
+          "parentEvent",
+          selectedParentId
+        );
+
+        if (childImage) {
+          formData.append(
+            "image",
+            childImage
+          );
         }
-      );
 
-      console.log(res.data);
+        const res =
+          await axios.post(
+            `${API}/create-event`,
+            formData,
+            {
+              headers: {
+                "Content-Type":
+                  "multipart/form-data",
+              },
+            }
+          );
 
-      alert("Child Event Created ✅");
+        console.log(res.data);
 
-      setChildTitle("");
-      setChildImage(null);
+        alert(
+          "Child Event Created ✅"
+        );
 
-      loadEvents();
-    } catch (err) {
-      console.log("Create Child Error:", err.response);
+        setChildTitle("");
+        setChildImage(null);
 
-      alert(
-        err.response?.data?.message ||
-          "Failed to create child event"
-      );
-    }
-  };
+        loadEvents();
 
-  // ================= DELETE EVENT =================
+      } catch (err) {
 
-  const deleteEvent = async (id, e) => {
-    e.stopPropagation();
+        console.log(
+          "Create Child Error:",
+          err.response
+        );
 
-    if (!window.confirm("Delete this event?")) {
-      return;
-    }
+        alert(
+          err.response?.data
+            ?.message ||
+            "Failed to create child event"
+        );
+      }
+    };
 
-    try {
-      await axios.delete(
-        `${API}/delete-event/${id}`
-      );
+  // ================= DELETE =================
 
-      if (selectedParent?._id === id) {
-        setSelectedParent(null);
-        setSelectedParentId("");
+  const deleteEvent =
+    async (id, e) => {
+
+      e.stopPropagation();
+
+      if (
+        !window.confirm(
+          "Delete this event?"
+        )
+      ) {
+        return;
       }
 
-      loadEvents();
-    } catch (err) {
-      console.log("Delete Error:", err.response);
-    }
-  };
+      try {
+
+        await axios.delete(
+          `${API}/delete-event/${id}`
+        );
+
+        if (
+          selectedParent?._id ===
+          id
+        ) {
+          setSelectedParent(null);
+
+          setSelectedParentId("");
+        }
+
+        loadEvents();
+
+      } catch (err) {
+
+        console.log(
+          "Delete Error:",
+          err.response
+        );
+      }
+    };
 
   // ================= FILTER PARENTS =================
 
-  const parentEvents = events.filter(
-    (event) => !event.parentEvent
-  );
+  const parentEvents =
+    events.filter(
+      (event) =>
+        !event.parentEvent
+    );
 
-  // ================= FILTER CHILDREN =================
+  // ================= FILTER CHILD =================
 
-  const childEvents = events.filter(
-    (event) =>
-      event.parentEvent &&
-      (event.parentEvent._id === selectedParent?._id ||
-        event.parentEvent === selectedParent?._id)
-  );
+  const childEvents =
+    events.filter(
+      (event) =>
+        event.parentEvent &&
+        (event.parentEvent._id ===
+          selectedParent?._id ||
+          event.parentEvent ===
+            selectedParent?._id)
+    );
+
+  // ================= UI =================
 
   return (
     <div className="admin-events">
-      <h2>Admin Events</h2>
+
+      <h2>
+        Admin Events
+      </h2>
 
       {/* ================= CREATE PARENT ================= */}
 
       <form
         className="form-box"
-        onSubmit={createParent}
+        onSubmit={
+          createParent
+        }
       >
         <input
           type="text"
           placeholder="Parent Event"
-          value={parentTitle}
+          value={
+            parentTitle
+          }
           onChange={(e) =>
-            setParentTitle(e.target.value)
+            setParentTitle(
+              e.target.value
+            )
           }
         />
 
@@ -193,7 +332,9 @@ function AdminEvents() {
           type="file"
           accept="image/*"
           onChange={(e) =>
-            setParentImage(e.target.files[0])
+            setParentImage(
+              e.target.files[0]
+            )
           }
         />
 
@@ -206,14 +347,20 @@ function AdminEvents() {
 
       <form
         className="form-box"
-        onSubmit={createChild}
+        onSubmit={
+          createChild
+        }
       >
         <input
           type="text"
           placeholder="Child Event"
-          value={childTitle}
+          value={
+            childTitle
+          }
           onChange={(e) =>
-            setChildTitle(e.target.value)
+            setChildTitle(
+              e.target.value
+            )
           }
         />
 
@@ -221,36 +368,54 @@ function AdminEvents() {
           type="file"
           accept="image/*"
           onChange={(e) =>
-            setChildImage(e.target.files[0])
+            setChildImage(
+              e.target.files[0]
+            )
           }
         />
 
         <select
-          value={selectedParentId}
+          value={
+            selectedParentId
+          }
           onChange={(e) => {
-            const id = e.target.value;
 
-            setSelectedParentId(id);
+            const id =
+              e.target.value;
 
-            const parent = parentEvents.find(
-              (p) => p._id === id
+            setSelectedParentId(
+              id
             );
 
-            setSelectedParent(parent);
+            const parent =
+              parentEvents.find(
+                (p) =>
+                  p._id === id
+              );
+
+            setSelectedParent(
+              parent
+            );
           }}
         >
           <option value="">
             Select Parent Event
           </option>
 
-          {parentEvents.map((parent) => (
-            <option
-              key={parent._id}
-              value={parent._id}
-            >
-              {parent.title}
-            </option>
-          ))}
+          {parentEvents.map(
+            (parent) => (
+              <option
+                key={
+                  parent._id
+                }
+                value={
+                  parent._id
+                }
+              >
+                {parent.title}
+              </option>
+            )
+          )}
         </select>
 
         <button type="submit">
@@ -260,45 +425,75 @@ function AdminEvents() {
 
       {/* ================= PARENT EVENTS ================= */}
 
-      <h3>Parent Events</h3>
+      <h3>
+        Parent Events
+      </h3>
 
       <div className="event-list">
-        {parentEvents.length === 0 && (
-          <p>No parent events found</p>
+
+        {parentEvents.length ===
+          0 && (
+          <p>
+            No parent events found
+          </p>
         )}
 
-        {parentEvents.map((parent) => (
-          <div
-            key={parent._id}
-            className={`event-card ${
-              selectedParent?._id === parent._id
-                ? "active"
-                : ""
-            }`}
-            onClick={() => {
-              setSelectedParent(parent);
-              setSelectedParentId(parent._id);
-            }}
-          >
-            {parent.image && (
-              <img
-                src={`${BACKEND_URL}${parent.image}`}
-                alt={parent.title}
-                className="event-image"
-              />
-            )}
+        {parentEvents.map(
+          (parent) => (
+            <div
+              key={parent._id}
+              className={`event-card ${
+                selectedParent?._id ===
+                parent._id
+                  ? "active"
+                  : ""
+              }`}
+              onClick={() => {
 
-            <p>{parent.title}</p>
+                setSelectedParent(
+                  parent
+                );
 
-            <button
-              onClick={(e) =>
-                deleteEvent(parent._id, e)
-              }
+                setSelectedParentId(
+                  parent._id
+                );
+              }}
             >
-              Delete
-            </button>
-          </div>
-        ))}
+              {/* IMAGE */}
+
+              <img
+                src={getImageUrl(
+                  parent.image
+                )}
+                alt={
+                  parent.title
+                }
+                className="event-image"
+                onError={(
+                  e
+                ) => {
+                  e.target.src =
+                    "https://dummyimage.com/300x200/cccccc/000000&text=No+Image";
+                }}
+              />
+
+              <p>
+                {parent.title}
+              </p>
+
+              <button
+                onClick={(e) =>
+                  deleteEvent(
+                    parent._id,
+                    e
+                  )
+                }
+              >
+                Delete
+              </button>
+            </div>
+          )
+        )}
       </div>
 
       {/* ================= CHILD EVENTS ================= */}
@@ -307,38 +502,65 @@ function AdminEvents() {
         <>
           <h3>
             Child Events of{" "}
-            {selectedParent.title}
+            {
+              selectedParent.title
+            }
           </h3>
 
-          {childEvents.length === 0 && (
-            <p>No child events found</p>
+          {childEvents.length ===
+            0 && (
+            <p>
+              No child events found
+            </p>
           )}
 
           <div className="event-list">
-            {childEvents.map((child) => (
-              <div
-                key={child._id}
-                className="event-card child-card"
-              >
-                {child.image && (
-                  <img
-                    src={`${BACKEND_URL}${child.image}`}
-                    alt={child.title}
-                    className="event-image"
-                  />
-                )}
 
-                <p>{child.title}</p>
-
-                <button
-                  onClick={(e) =>
-                    deleteEvent(child._id, e)
+            {childEvents.map(
+              (child) => (
+                <div
+                  key={
+                    child._id
                   }
+                  className="event-card child-card"
                 >
-                  Delete
-                </button>
-              </div>
-            ))}
+                  {/* IMAGE */}
+
+                  <img
+                    src={getImageUrl(
+                      child.image
+                    )}
+                    alt={
+                      child.title
+                    }
+                    className="event-image"
+                    onError={(
+                      e
+                    ) => {
+                      e.target.src =
+                        "https://dummyimage.com/300x200/cccccc/000000&text=No+Image";
+                    }}
+                  />
+
+                  <p>
+                    {child.title}
+                  </p>
+
+                  <button
+                    onClick={(
+                      e
+                    ) =>
+                      deleteEvent(
+                        child._id,
+                        e
+                      )
+                    }
+                  >
+                    Delete
+                  </button>
+                </div>
+              )
+            )}
           </div>
         </>
       )}
